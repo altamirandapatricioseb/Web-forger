@@ -1,0 +1,282 @@
+/* WebForge Builder — estética de plano técnico */
+:root {
+  --paper: #eef1f6;
+  --ink: #101828;
+  --line: #cfd7e4;
+  --blue: #2447f5;
+  --blue-soft: #e4e9ff;
+  --amber: #ff9f1c;
+  --label-ink: #475467;
+  --muted-ink: #667085;
+  /* Montserrat es la tipografía de toda la interfaz del Builder (títulos, labels, cuerpo,
+     botones, logo). El monoespaciado queda reservado sólo para tokens de código: ids de
+     módulo, contadores de spec y dependencias — donde SÍ representan código. */
+  --mono: ui-monospace, 'Cascadia Code', 'Courier New', monospace;
+  --sans: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --z-toast: 60;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; font-family: var(--sans); font-weight: 500; color: var(--ink);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  background: var(--paper);
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  display: flex; flex-direction: column;
+}
+
+/* Barra superior */
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--ink); color: white; padding: 0 20px; height: 56px; flex-shrink: 0;
+}
+.logo { font-family: var(--sans); font-weight: 800; letter-spacing: -0.01em; font-size: 1.02rem; }
+.logo span { color: var(--amber); }
+.topbar-actions { display: flex; gap: 14px; align-items: center; }
+.spec-tag {
+  font-family: var(--sans); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.02em;
+  border: 1px solid currentColor; border-radius: 999px; padding: 3px 10px; opacity: 0.82;
+}
+.btn-export {
+  background: var(--amber); color: var(--ink); border: 0; font-family: var(--sans); font-weight: 700;
+  font-size: 0.86rem; letter-spacing: -0.005em;
+  padding: 9px 18px; border-radius: 6px; cursor: pointer;
+}
+.btn-export:hover { filter: brightness(1.08); }
+.btn-export:disabled { opacity: 0.6; cursor: wait; }
+
+/* Layout */
+.workspace { display: flex; flex: 1; min-height: 0; }
+.panel {
+  width: 340px; flex-shrink: 0; overflow-y: auto; background: white;
+  border-right: 2px solid var(--ink); padding: 18px;
+}
+
+/* Bloques del panel: colapsables (details/summary) */
+.panel-block { border: 1px solid var(--line); border-radius: 6px; margin-bottom: 14px; background: white; }
+.block-head {
+  font-family: var(--sans); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.07em; text-transform: uppercase;
+  padding: 12px 14px; display: flex; align-items: center; gap: 8px; cursor: pointer;
+  list-style: none; user-select: none;
+}
+.block-head::-webkit-details-marker { display: none; }
+.block-head::after {
+  content: '▸'; margin-left: auto; font-size: 0.65rem; color: var(--muted-ink);
+  transition: transform .18s ease;
+}
+.panel-block[open] > .block-head::after { transform: rotate(90deg); }
+.panel-block[open] > .block-head { border-bottom: 1px solid var(--line); }
+.block-head:hover { color: var(--blue); }
+.block-head:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; border-radius: 6px; }
+.block-head-count {
+  font-size: 0.72rem; letter-spacing: 0.04em; color: var(--blue);
+  background: var(--blue-soft); border-radius: 999px; padding: 1px 8px; text-transform: none;
+}
+.block-body { padding: 4px 14px 14px; }
+
+.idx {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; background: var(--blue); color: white;
+  border-radius: 3px; font-size: 0.72rem; flex-shrink: 0;
+}
+label { display: block; font-size: 0.75rem; font-weight: 600; margin: 10px 0 3px; color: var(--label-ink); }
+.block-body > label:first-child { margin-top: 4px; }
+input[type="text"], input:not([type]), input[type="search"], textarea, select {
+  width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px;
+  font: inherit; font-size: 0.88rem; background: var(--paper); color: var(--ink);
+}
+input:focus, textarea:focus, select:focus { outline: 2px solid var(--blue); outline-offset: 1px; }
+.color-row { display: flex; gap: 12px; }
+.color-row > div { flex: 1; }
+input[type="color"] { width: 100%; height: 38px; border: 1px solid var(--line); border-radius: 4px; padding: 2px; cursor: pointer; background: white; }
+/* Notas de ayuda: gris de verdad, no tinta plena */
+.muted-note { font-size: 0.72rem; line-height: 1.4; color: var(--muted-ink); margin: 6px 0 0; }
+
+/* Fila de checkbox suelta (opciones booleanas del panel) */
+.check-row {
+  display: flex; align-items: flex-start; gap: 8px; margin-top: 10px;
+  font-size: 0.75rem; font-weight: 600; color: var(--label-ink); cursor: pointer;
+}
+.check-row input { margin-top: 1px; accent-color: var(--blue); flex-shrink: 0; }
+
+/* Muestra en vivo de la tipografía elegida para el sitio generado.
+   Rendea con la familia real (font-family la fija app.js), así el usuario ve qué exporta. */
+.font-sample {
+  display: flex; align-items: center; gap: 12px; margin-top: 8px;
+  border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; background: var(--paper);
+}
+.font-sample-big { font-size: 1.9rem; font-weight: 700; line-height: 1; color: var(--ink); flex-shrink: 0; }
+.font-sample-txt { font-size: 0.9rem; font-weight: 600; line-height: 1.25; color: var(--ink); }
+.font-sample-txt small { display: block; margin-top: 2px; font-size: 0.72rem; font-weight: 400; color: var(--label-ink); }
+
+/* Presets de arranque */
+.preset-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 12px; }
+.preset-btn {
+  font-family: var(--sans); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.01em;
+  border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  border-radius: 999px; padding: 5px 12px; cursor: pointer;
+  transition: border-color .12s, box-shadow .18s, background .12s, color .12s;
+}
+.preset-btn:hover { border-color: var(--amber); box-shadow: 0 4px 10px rgba(255, 159, 28, 0.22); }
+.preset-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
+
+/* Buscador de módulos */
+.mod-search { position: relative; margin-bottom: 12px; }
+.mod-search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--muted-ink); pointer-events: none; }
+.mod-search input { padding-left: 30px; padding-right: 28px; }
+.mod-search input[type="search"]::-webkit-search-decoration,
+.mod-search input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
+.mod-search-clear {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  border: 0; background: none; color: var(--muted-ink); font-size: 0.95rem; line-height: 1;
+  cursor: pointer; padding: 4px 6px; border-radius: 3px;
+}
+.mod-search-clear:hover { color: var(--ink); background: var(--paper); }
+
+/* Resumen de módulos seleccionados (chips) */
+.selected-summary { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+.sel-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.72rem; border-radius: 999px; padding: 3px 5px 3px 9px;
+  background: var(--blue-soft); color: var(--ink); border: 1px solid transparent; max-width: 100%;
+}
+.sel-chip .sel-x {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 15px; height: 15px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(36, 71, 245, 0.16); color: var(--blue); font-size: 0.8rem; line-height: 1; padding: 0;
+}
+.sel-chip .sel-x:hover { background: var(--blue); color: white; }
+.sel-chip.is-dep { background: var(--paper); color: var(--label-ink); border-color: var(--line); }
+.sel-chip.is-dep .sel-tag { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.04em; color: var(--blue); }
+.selected-summary .sel-empty { font-size: 0.75rem; color: var(--muted-ink); }
+
+/* Secciones por tipo (Interfaz / Funcionales) */
+.mod-type { margin-top: 14px; }
+.mod-type-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
+.mod-type-head h3 { margin: 0; font-family: var(--sans); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--label-ink); }
+.mod-type-tools { font-size: 0.72rem; color: var(--muted-ink); }
+.link-btn { border: 0; background: none; color: var(--blue); font: inherit; font-size: 0.72rem; cursor: pointer; padding: 2px 3px; border-radius: 3px; }
+.link-btn:hover { text-decoration: underline; }
+.link-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
+.mod-type-tools .sep { color: var(--line); }
+
+/* Categorías colapsables */
+.mod-cats { display: flex; flex-direction: column; gap: 6px; }
+.mod-cat { border: 1px solid var(--line); border-radius: 4px; }
+.mod-cat-head {
+  display: flex; align-items: center; gap: 8px; padding: 7px 10px; cursor: pointer;
+  font-size: 0.8rem; font-weight: 600; list-style: none; user-select: none;
+}
+.mod-cat-head::-webkit-details-marker { display: none; }
+.mod-cat-head::after { content: '▸'; margin-left: auto; font-size: 0.65rem; color: var(--muted-ink); transition: transform .18s ease; }
+.mod-cat[open] > .mod-cat-head::after { transform: rotate(90deg); }
+.mod-cat[open] > .mod-cat-head { border-bottom: 1px solid var(--line); }
+.mod-cat-head:hover { color: var(--blue); }
+.mod-cat-head:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; border-radius: 4px; }
+.mod-cat-count {
+  font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.02em; font-weight: 400;
+  color: var(--muted-ink); border: 1px solid var(--line); border-radius: 3px; padding: 0 5px;
+}
+.mod-cat-count.has-on { color: var(--blue); border-color: var(--blue); background: var(--blue-soft); }
+.mod-cat-body { padding: 6px; display: flex; flex-direction: column; gap: 6px; }
+
+/* Movimiento y efectos: un select por eje, armado desde /api/efectos */
+#fx-axes label { margin-top: 12px; }
+#fx-axes label:first-child { margin-top: 0; }
+#fx-axes .muted-note { margin: 4px 0 0; }
+.fx-tools { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
+.fx-tools .sep { color: var(--line); }
+
+/* Textos por sección: un grupo colapsable por módulo con campos declarados */
+.sec-texts-search { margin-bottom: 10px; }
+.sec-text { border: 1px solid var(--line); border-radius: 4px; margin-bottom: 6px; }
+.sec-text-head {
+  display: flex; align-items: center; gap: 8px; padding: 7px 10px; cursor: pointer;
+  font-size: 0.8rem; font-weight: 600; list-style: none; user-select: none;
+}
+.sec-text-head::-webkit-details-marker { display: none; }
+.sec-text-head::after { content: '▸'; margin-left: auto; font-size: 0.65rem; color: var(--muted-ink); transition: transform .18s ease; }
+.sec-text[open] > .sec-text-head::after { transform: rotate(90deg); }
+.sec-text[open] > .sec-text-head { border-bottom: 1px solid var(--line); }
+.sec-text-head:hover { color: var(--blue); }
+.sec-text-head:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; border-radius: 4px; }
+.sec-text-count {
+  font-family: var(--mono); font-size: 0.65rem; color: var(--muted-ink);
+  border: 1px solid var(--line); border-radius: 3px; padding: 0 5px;
+}
+.sec-text-body { padding: 4px 10px 12px; }
+.sec-text-body label { margin-top: 10px; }
+.sec-text-body textarea { resize: vertical; }
+/* La ayuda va ENTRE el label y el campo: explica el formato justo antes de que se escriba
+   (los campos de lista piden un ítem por línea y separar columnas con "|"). */
+.sec-hint { display: block; font-size: 0.75rem; color: var(--muted-ink); margin: 0 0 4px; line-height: 1.35; }
+
+/* Lista de módulos, estilo hoja de especificaciones */
+.module-list { display: flex; flex-direction: column; gap: 6px; }
+.module-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; cursor: pointer;
+  transition: border-color .12s, background .12s;
+}
+.module-item:hover { border-color: var(--blue); }
+.module-item.on { border-color: var(--blue); background: var(--blue-soft); }
+.module-item input { margin-top: 3px; accent-color: var(--blue); flex-shrink: 0; }
+.module-item .mod-id { display: block; font-family: var(--mono); font-size: 0.65rem; color: var(--blue); letter-spacing: 0.03em; }
+.module-item .mod-name { display: block; font-weight: 600; font-size: 0.86rem; }
+.module-item .mod-desc { font-size: 0.75rem; color: var(--muted-ink); line-height: 1.35; margin-top: 2px; }
+.module-item .mod-req { display: block; font-family: var(--mono); font-size: 0.65rem; color: var(--muted-ink); margin-top: 3px; }
+/* En una fila seleccionada (fondo azul tenue) el gris apagado baja de contraste AA:
+   se oscurece a la tinta de etiqueta, que sí pasa 4.5:1 sobre blue-soft. */
+.module-item.on .mod-desc, .module-item.on .mod-req { color: var(--label-ink); }
+.saas-item { cursor: pointer; }
+.mod-empty { font-size: 0.78rem; color: var(--muted-ink); padding: 4px 0 8px; }
+
+/* Área de preview: hoja de plano con marcas de esquina */
+.preview-area { flex: 1; display: flex; flex-direction: column; min-width: 0; padding: 18px; }
+.preview-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: var(--ink); gap: 12px; }
+.page-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.page-tab {
+  font-family: var(--sans); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.03em;
+  border: 1px solid var(--ink); background: white; border-radius: 4px; color: var(--ink);
+  padding: 5px 11px; cursor: pointer;
+}
+.page-tab.active { background: var(--ink); color: white; }
+.preview-frame-wrap {
+  flex: 1; position: relative; background: white;
+  border: 2px solid var(--ink); box-shadow: 8px 8px 0 rgba(16, 24, 40, 0.12);
+}
+.preview-frame-wrap::before, .preview-frame-wrap::after {
+  content: ''; position: absolute; width: 14px; height: 14px; border: 2px solid var(--blue); z-index: 1;
+}
+.preview-frame-wrap::before { top: -8px; left: -8px; border-right: 0; border-bottom: 0; }
+.preview-frame-wrap::after { bottom: -8px; right: -8px; border-left: 0; border-top: 0; }
+iframe { width: 100%; height: 100%; border: 0; background: white; }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: white; padding: 10px 18px; border-radius: 999px;
+  font-size: 0.86rem; opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 50;
+}
+.toast.show { opacity: 1; }
+
+/* Profundidad al hover (sombra/borde). El movimiento —escala, resortes— lo pone
+   Motion desde app.js; acá solo va lo que no compite con su transform inline. */
+.btn-export, .page-tab, .module-item { transition: box-shadow .18s ease, border-color .12s ease, background .12s ease; }
+.btn-export:hover { box-shadow: 0 6px 18px rgba(255, 159, 28, 0.35); }
+.page-tab:hover { box-shadow: 0 4px 10px rgba(16, 24, 40, 0.14); }
+.module-item:hover { box-shadow: 0 5px 14px rgba(36, 71, 245, 0.14); }
+.module-item.on { box-shadow: 0 3px 10px rgba(36, 71, 245, 0.12); }
+.btn-export, .page-tab, .module-item, .panel-block, .preview-frame-wrap { will-change: transform; }
+
+@media (max-width: 860px) {
+  .workspace { flex-direction: column; overflow-y: auto; }
+  .panel { width: 100%; border-right: 0; border-bottom: 2px solid var(--ink); }
+  .preview-area { min-height: 70vh; }
+}
+
+/* Sin animaciones si el usuario pide menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .btn-export, .page-tab, .module-item, .block-head::after, .mod-cat-head::after, .preset-btn { transition: none; }
+}

@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-15T16:45:00.000Z",
+  "title": "Design System: WebForge Builder",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "neutral", "displayName": "Tinta", "canonical": "oklch(0.20 0.03 265)", "tonalRamp": ["oklch(0.16 0.03 265)", "oklch(0.22 0.03 265)", "oklch(0.30 0.03 265)", "oklch(0.40 0.025 265)", "oklch(0.52 0.02 262)", "oklch(0.66 0.015 260)", "oklch(0.80 0.01 258)", "oklch(0.94 0.006 255)"] },
+      "blueprint-blue": { "role": "primary", "displayName": "Azul de Plano", "canonical": "oklch(0.52 0.26 268)", "tonalRamp": ["oklch(0.24 0.14 268)", "oklch(0.32 0.19 268)", "oklch(0.40 0.24 268)", "oklch(0.52 0.26 268)", "oklch(0.62 0.22 268)", "oklch(0.74 0.15 268)", "oklch(0.86 0.08 268)", "oklch(0.94 0.035 268)"] },
+      "action-amber": { "role": "secondary", "displayName": "Ámbar de Acción", "canonical": "oklch(0.78 0.16 68)", "tonalRamp": ["oklch(0.38 0.09 68)", "oklch(0.48 0.11 68)", "oklch(0.58 0.13 68)", "oklch(0.68 0.15 68)", "oklch(0.78 0.16 68)", "oklch(0.86 0.13 72)", "oklch(0.92 0.08 76)", "oklch(0.96 0.04 80)"] },
+      "blueprint-paper": { "role": "neutral", "displayName": "Papel de Plano", "canonical": "oklch(0.95 0.008 255)", "tonalRamp": ["oklch(0.30 0.012 255)", "oklch(0.42 0.012 255)", "oklch(0.55 0.011 255)", "oklch(0.68 0.010 255)", "oklch(0.80 0.009 255)", "oklch(0.88 0.008 255)", "oklch(0.95 0.008 255)", "oklch(0.98 0.005 255)"] },
+      "line": { "role": "neutral", "displayName": "Línea", "canonical": "oklch(0.86 0.012 258)", "tonalRamp": ["oklch(0.30 0.012 258)", "oklch(0.42 0.012 258)", "oklch(0.55 0.012 258)", "oklch(0.66 0.012 258)", "oklch(0.76 0.012 258)", "oklch(0.86 0.012 258)", "oklch(0.92 0.008 258)", "oklch(0.97 0.005 258)"] }
+    },
+    "typographyMeta": {
+      "wordmark": { "displayName": "Wordmark", "purpose": "El logo WEBFORGE_BUILDER en la barra superior; monoespaciada 700, tracking amplio. Único uso de la mono en tamaño de marca." },
+      "section-label": { "displayName": "Section Label", "purpose": "Rótulos de bloque del panel en mono MAYÚSCULAS, junto al badge de índice azul." },
+      "body": { "displayName": "Body", "purpose": "Contenido legible: valores de campos, texto de inputs, nombres de módulo. Sans del sistema." },
+      "field-label": { "displayName": "Field Label", "purpose": "Etiquetas sobre cada control del panel, sans 600 en tinta de etiqueta." },
+      "mono-meta": { "displayName": "Mono Meta", "purpose": "Spec tags y pestañas de página del preview: el número de pieza de cada cosa." },
+      "subhead": { "displayName": "Subhead", "purpose": "Nombre de cada módulo en la fila del catálogo (sans 600, 0.86rem)." },
+      "group-head": { "displayName": "Group Head", "purpose": "Título de cada categoría colapsable del catálogo (sans 600, 0.8rem)." },
+      "nano": { "displayName": "Nano", "purpose": "Ids reales de módulo, contadores de categoría, dependencias y chevrons (mono, 0.65rem). El grano más fino de la hoja de especificaciones." }
+    },
+    "typeScale": ["0.65rem", "0.72rem", "0.75rem", "0.78rem", "0.8rem", "0.86rem", "0.88rem", "0.95rem"],
+    "shadows": [
+      { "name": "sombra-de-plano", "value": "8px 8px 0 rgba(16, 24, 40, 0.12)", "purpose": "Sombra dura con offset, sin blur, exclusiva del marco del preview: un plano apoyado sobre la mesa. La firma del sistema." },
+      { "name": "resplandor-ambar", "value": "0 6px 18px rgba(255, 159, 28, 0.35)", "purpose": "Hover del botón exportar; refuerza que es la acción primaria." },
+      { "name": "resplandor-azul", "value": "0 5px 14px rgba(36, 71, 245, 0.14)", "purpose": "Hover de las filas de módulo; versión a 0.12 en el módulo seleccionado." },
+      { "name": "realce-pestana", "value": "0 4px 10px rgba(16, 24, 40, 0.14)", "purpose": "Hover de las pestañas de página del preview." }
+    ],
+    "motion": [
+      { "name": "transicion-superficie", "value": "box-shadow .18s ease, border-color .12s ease, background .12s ease", "purpose": "Transición base de superficies (botones, pestañas, filas de módulo) al cambiar de estado." },
+      { "name": "foco-campo", "value": "outline .12s ease", "purpose": "Aparición del anillo de foco azul en inputs." },
+      { "name": "spring-transform", "value": "Motion (motion.dev) — resorte de escala aplicado por app.js al hover; el CSS no compite con el transform inline.", "purpose": "Micro-resorte de escala en elementos interactivos; se apaga con prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "workspace-collapse", "value": "860px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Export Button",
+      "kind": "button",
+      "refersTo": "button-export",
+      "description": "La única acción primaria de la pantalla: exportar el proyecto como .zip. Ámbar de acción sobre tinta.",
+      "html": "<button class=\"ds-btn-export\">Exportar proyecto .zip</button>",
+      "css": ".ds-btn-export { background: #ff9f1c; color: #101828; border: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: 0.9rem; padding: 9px 18px; border-radius: 4px; cursor: pointer; transition: box-shadow .18s ease, filter .12s ease, transform .12s ease; } .ds-btn-export:hover { filter: brightness(1.08); box-shadow: 0 6px 18px rgba(255,159,28,0.35); transform: translateY(-1px); } .ds-btn-export:focus-visible { outline: 2px solid #2447f5; outline-offset: 2px; } .ds-btn-export:active { transform: translateY(0); } .ds-btn-export:disabled { opacity: 0.6; cursor: wait; filter: none; box-shadow: none; }"
+    },
+    {
+      "name": "Section Label",
+      "kind": "custom",
+      "refersTo": "section-label",
+      "description": "Rótulo de bloque del panel con badge de índice azul: la anotación de sección estilo plano.",
+      "html": "<h2 class=\"ds-section-label\"><span class=\"ds-idx\">A</span> Marca</h2>",
+      "css": ".ds-section-label { display: flex; align-items: center; gap: 8px; margin: 0; font-family: ui-monospace, 'Cascadia Code', 'Courier New', monospace; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #101828; } .ds-idx { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; background: #2447f5; color: #fff; border-radius: 3px; font-size: 0.7rem; }"
+    },
+    {
+      "name": "Module Item",
+      "kind": "card",
+      "refersTo": "module-item",
+      "description": "Fila tipo hoja de especificaciones del catálogo de módulos: id en mono, nombre en sans, descripción tenue. Hover con borde y resplandor azul.",
+      "html": "<label class=\"ds-module-item\"><input type=\"checkbox\"><span class=\"ds-mod-body\"><span class=\"ds-mod-id\">usertestimonials</span><span class=\"ds-mod-name\">Testimonios moderados</span><span class=\"ds-mod-desc\">Muro de testimonios aprobados y panel de moderación con backend real.</span></span></label>",
+      "css": ".ds-module-item { display: flex; gap: 10px; align-items: flex-start; border: 1px solid #cfd7e4; border-radius: 4px; padding: 8px 10px; cursor: pointer; background: #fff; transition: box-shadow .18s ease, border-color .12s ease, background .12s ease; } .ds-module-item:hover { border-color: #2447f5; box-shadow: 0 5px 14px rgba(36,71,245,0.14); } .ds-module-item:has(input:checked) { border-color: #2447f5; background: #e4e9ff; box-shadow: 0 3px 10px rgba(36,71,245,0.12); } .ds-module-item input { margin-top: 3px; accent-color: #2447f5; } .ds-mod-body { display: flex; flex-direction: column; gap: 2px; } .ds-mod-id { font-family: ui-monospace, 'Cascadia Code', 'Courier New', monospace; font-size: 0.65rem; color: #2447f5; letter-spacing: 0.05em; } .ds-mod-name { font-family: system-ui, sans-serif; font-weight: 600; font-size: 0.86rem; color: #101828; } .ds-mod-desc { font-family: system-ui, sans-serif; font-size: 0.74rem; color: #667085; line-height: 1.35; }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Campo del panel: relleno en papel de plano, borde de línea, anillo de foco azul de estado.",
+      "html": "<label class=\"ds-field-label\">Nombre</label><input class=\"ds-input\" value=\"Mi Empresa\">",
+      "css": ".ds-field-label { display: block; font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 600; margin: 0 0 3px; color: #475467; } .ds-input { width: 100%; padding: 8px 10px; border: 1px solid #cfd7e4; border-radius: 4px; font-family: system-ui, sans-serif; font-size: 0.88rem; background: #eef1f6; color: #101828; transition: outline .12s ease, border-color .12s ease; } .ds-input:focus { outline: 2px solid #2447f5; outline-offset: 1px; border-color: #2447f5; }"
+    },
+    {
+      "name": "Page Tab",
+      "kind": "nav",
+      "refersTo": "page-tab",
+      "description": "Pestañas de página del preview en mono; la activa invierte a fondo tinta.",
+      "html": "<div class=\"ds-tabs\"><button class=\"ds-tab ds-tab--active\">index</button><button class=\"ds-tab\">ayuda</button><button class=\"ds-tab\">presupuestos</button></div>",
+      "css": ".ds-tabs { display: flex; gap: 6px; flex-wrap: wrap; } .ds-tab { font-family: ui-monospace, 'Cascadia Code', 'Courier New', monospace; font-size: 0.72rem; letter-spacing: 0.04em; border: 1px solid #101828; background: #fff; color: #101828; border-radius: 3px; padding: 5px 10px; cursor: pointer; transition: box-shadow .18s ease, background .12s ease; } .ds-tab:hover { box-shadow: 0 4px 10px rgba(16,24,40,0.14); } .ds-tab--active { background: #101828; color: #fff; } .ds-tab:focus-visible { outline: 2px solid #2447f5; outline-offset: 2px; }"
+    },
+    {
+      "name": "Spec Tag",
+      "kind": "chip",
+      "refersTo": "spec-tag",
+      "description": "Chip mono bordeado que reporta un conteo o estado técnico (el número de pieza).",
+      "html": "<span class=\"ds-spec-tag\">142 módulos</span>",
+      "css": ".ds-spec-tag { display: inline-block; font-family: ui-monospace, 'Cascadia Code', 'Courier New', monospace; font-size: 0.72rem; letter-spacing: 0.05em; border: 1px solid currentColor; border-radius: 3px; padding: 3px 8px; color: #101828; opacity: 0.85; }"
+    },
+    {
+      "name": "Module Search",
+      "kind": "input",
+      "refersTo": "module-search",
+      "description": "Buscador del catálogo con ícono e input tipo search; filtra las 142 filas por id, nombre y descripción.",
+      "html": "<div class=\"ds-modsearch\"><svg viewBox=\"0 0 24 24\" width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"m21 21-4.3-4.3\"/></svg><input type=\"search\" placeholder=\"Buscar módulos…  (tecla /)\"></div>",
+      "css": ".ds-modsearch { position: relative; } .ds-modsearch svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #667085; } .ds-modsearch input { width: 100%; padding: 8px 10px 8px 30px; border: 1px solid #cfd7e4; border-radius: 4px; font-family: system-ui, sans-serif; font-size: 0.88rem; background: #eef1f6; color: #101828; } .ds-modsearch input:focus { outline: 2px solid #2447f5; outline-offset: 1px; }"
+    },
+    {
+      "name": "Selected Chip",
+      "kind": "chip",
+      "refersTo": "selected-summary",
+      "description": "Chip del resumen de selección: azul-tenue removible para lo elegido, en papel con etiqueta 'auto' para lo que se agrega por dependencia.",
+      "html": "<div class=\"ds-chips\"><span class=\"ds-chip\">Carrito + Checkout<button class=\"ds-chip-x\">×</button></span><span class=\"ds-chip ds-chip--dep\">Autenticación<span class=\"ds-chip-tag\">auto</span></span></div>",
+      "css": ".ds-chips { display: flex; flex-wrap: wrap; gap: 5px; } .ds-chip { display: inline-flex; align-items: center; gap: 5px; font-family: system-ui, sans-serif; font-size: 0.72rem; border-radius: 999px; padding: 3px 5px 3px 9px; background: #e4e9ff; color: #101828; border: 1px solid transparent; } .ds-chip-x { display: inline-flex; align-items: center; justify-content: center; width: 15px; height: 15px; border-radius: 50%; border: 0; cursor: pointer; background: rgba(36,71,245,0.16); color: #2447f5; font-size: 0.8rem; line-height: 1; padding: 0; } .ds-chip-x:hover { background: #2447f5; color: #fff; } .ds-chip--dep { background: #eef1f6; color: #667085; border-color: #cfd7e4; } .ds-chip-tag { font-family: ui-monospace, 'Cascadia Code', 'Courier New', monospace; font-size: 0.65rem; letter-spacing: 0.04em; color: #2447f5; }"
+    },
+    {
+      "name": "Preset Button",
+      "kind": "button",
+      "refersTo": "preset-btn",
+      "description": "Botón de preset de arranque (mono, hover ámbar) que precarga un set de módulos.",
+      "html": "<div class=\"ds-presets\"><button class=\"ds-preset\">Landing</button><button class=\"ds-preset\">Tienda</button><button class=\"ds-preset\">Reservas</button></div>",
+      "css": ".ds-presets { display: flex; flex-wrap: wrap; gap: 6px; } .ds-preset { font-family: ui-monospace, 'Cascadia Code', 'Courier New', monospace; font-size: 0.72rem; letter-spacing: 0.03em; border: 1px solid #cfd7e4; background: #eef1f6; color: #101828; border-radius: 3px; padding: 5px 9px; cursor: pointer; transition: border-color .12s, box-shadow .18s, background .12s; } .ds-preset:hover { border-color: #ff9f1c; box-shadow: 0 4px 10px rgba(255,159,28,0.22); } .ds-preset:focus-visible { outline: 2px solid #2447f5; outline-offset: 1px; }"
+    },
+    {
+      "name": "Category Accordion",
+      "kind": "custom",
+      "refersTo": "mod-cat",
+      "description": "Categoría colapsable del catálogo (details/summary): título group-head + contador nano de seleccionados/total; azul cuando hay activos.",
+      "html": "<details class=\"ds-cat\" open><summary class=\"ds-cat-head\">Comercio y precios<span class=\"ds-cat-count ds-cat-count--on\">2/8</span></summary><div class=\"ds-cat-body\"><label class=\"ds-modrow ds-modrow--on\"><input type=\"checkbox\" checked><span><span class=\"ds-modid\">pricing</span><span class=\"ds-modname\">Precios</span></span></label></div></details>",
+      "css": ".ds-cat { border: 1px solid #cfd7e4; border-radius: 4px; } .ds-cat-head { display: flex; align-items: center; gap: 8px; padding: 7px 10px; cursor: pointer; font-family: system-ui, sans-serif; font-size: 0.8rem; font-weight: 600; color: #101828; list-style: none; } .ds-cat-head::after { content: '▸'; margin-left: auto; font-size: 0.65rem; color: #667085; transition: transform .18s ease; } .ds-cat[open] > .ds-cat-head::after { transform: rotate(90deg); } .ds-cat[open] > .ds-cat-head { border-bottom: 1px solid #cfd7e4; } .ds-cat-count { font-family: ui-monospace, 'Cascadia Code', 'Courier New', monospace; font-size: 0.65rem; color: #667085; border: 1px solid #cfd7e4; border-radius: 3px; padding: 0 5px; } .ds-cat-count--on { color: #2447f5; border-color: #2447f5; background: #e4e9ff; } .ds-cat-body { padding: 6px; } .ds-modrow { display: flex; gap: 10px; align-items: flex-start; border: 1px solid #cfd7e4; border-radius: 4px; padding: 8px 10px; cursor: pointer; } .ds-modrow--on { border-color: #2447f5; background: #e4e9ff; } .ds-modid { display: block; font-family: ui-monospace, monospace; font-size: 0.65rem; color: #2447f5; } .ds-modname { display: block; font-weight: 600; font-size: 0.86rem; color: #101828; }"
+    },
+    {
+      "name": "Preview Canvas",
+      "kind": "custom",
+      "refersTo": "preview-frame",
+      "description": "El lienzo protagonista: marco de 2px en tinta, sombra dura con offset y marcas de esquina en L azul de plano que lo encuadran como un recorte técnico.",
+      "html": "<div class=\"ds-preview\"><div class=\"ds-preview-inner\">preview en vivo</div></div>",
+      "css": ".ds-preview { position: relative; background: #fff; border: 2px solid #101828; box-shadow: 8px 8px 0 rgba(16,24,40,0.12); min-height: 160px; } .ds-preview::before, .ds-preview::after { content: ''; position: absolute; width: 14px; height: 14px; border: 2px solid #2447f5; } .ds-preview::before { top: -8px; left: -8px; border-right: 0; border-bottom: 0; } .ds-preview::after { bottom: -8px; right: -8px; border-left: 0; border-top: 0; } .ds-preview-inner { display: flex; align-items: center; justify-content: center; height: 100%; min-height: 156px; font-family: ui-monospace, 'Cascadia Code', 'Courier New', monospace; font-size: 0.75rem; color: #667085; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "La Mesa de Trazado (The Drafting Table)",
+    "overview": "WebForge Builder se ve como el tablero de un dibujante técnico: una hoja de papel milimetrado bajo buena luz, tinta de plano, marcas de esquina y anotaciones a mano en monoespaciada. No es decoración temática — es coherente con lo que la herramienta hace: se compone un sistema (marca, colores, módulos) con precisión y se ve el resultado ensamblarse en vivo al lado. La densidad es alta pero legible: un panel de control a la izquierda, el lienzo de preview como protagonista a la derecha, y cero relleno persuasivo. El azul de plano marca lo que está activo o seleccionado; el ámbar marca la única acción que importa (exportar). La identidad se apoya en dos voces tipográficas: la monoespaciada viste el cromado técnico y la sans del sistema lleva el contenido legible. Este sistema rechaza las cuatro trampas de su categoría: landing SaaS genérica, builder no-code recargado, proyecto de juguete y dashboard corporativo estéril. El papel es un gris-azulado frío, nunca el crema cálido que delata al diseño hecho por defecto.",
+    "keyCharacteristics": [
+      "Fondo de papel milimetrado (grilla de 32px en line sobre blueprint-paper frío).",
+      "Todo plano y delineado con 1px; la profundidad la ponen la línea y la grilla, no las sombras.",
+      "Una sola sombra dura con offset (8px 8px 0) reservada al lienzo de preview.",
+      "Marcas de esquina en L (azul de plano) que encuadran el preview como un recorte técnico.",
+      "Mono para el cromado técnico, sans para el contenido; nunca al revés.",
+      "Azul = estado (activo/selección/foco). Ámbar = acción (exportar). Nada de color decorativo."
+    ],
+    "rules": [
+      { "name": "The State-or-Action Rule", "body": "El azul de plano solo comunica estado (activo, seleccionado, enfocado) y el ámbar solo comunica acción (exportar/compartir). Ningún color se usa como decoración. La escasez del ámbar —una sola aparición fuerte por pantalla— es lo que lo hace leer como 'el botón'.", "section": "colors" },
+      { "name": "The Mono-for-Machine Rule", "body": "La monoespaciada viste solo lo estructural y técnico (marca, rótulos de sección, ids, spec tags, pestañas). El contenido que un humano lee de corrido (campos, descripciones) va siempre en la sans del sistema. Invertirlo rompe la lectura de plano.", "section": "typography" },
+      { "name": "The Linework-First Rule", "body": "La jerarquía se construye con líneas de 1px, el borde estructural de 2px en tinta y la grilla de 32px — no con sombras. Las sombras aparecen solo como respuesta a un estado (hover) o para el único lienzo que debe levantarse (el preview).", "section": "elevation" }
+    ],
+    "dos": [
+      "Do mantener la grilla milimetrada de 32px como fondo del workspace: es la identidad, no un adorno.",
+      "Do reservar el ámbar (#ff9f1c) para la acción primaria (exportar/compartir) y nada más — una aparición fuerte por pantalla.",
+      "Do usar el azul de plano (#2447f5) solo para estado: activo, seleccionado, foco.",
+      "Do vestir el cromado técnico en monoespaciada y el contenido legible en sans del sistema.",
+      "Do construir jerarquía con líneas de 1px, el borde estructural de 2px en tinta y la grilla — no con sombras.",
+      "Do mantener el lienzo de preview como protagonista, con su marca de esquina y su sombra dura con offset.",
+      "Do verificar contraste: labels en #475467 y descripciones en #667085 sobre blanco están sobre 5:1."
+    ],
+    "donts": [
+      "Don't teñir el papel hacia el crema/cálido: el fondo es un gris-azulado frío (#eef1f6). El crema cálido es el default de IA que este sistema rechaza.",
+      "Don't convertir esto en una landing SaaS genérica: nada de hero con degradé, tríos de cards de features, métricas gigantes ni eyebrows en mayúsculas.",
+      "Don't convertirlo en un builder no-code recargado: nada de drag-handles por todos lados ni chrome que abrume el panel.",
+      "Don't dejar que parezca un proyecto de juguete: la terminación es de trabajo de cliente.",
+      "Don't caer en el dashboard corporativo estéril: gris sobre gris sin la grilla ni la tinta de plano.",
+      "Don't usar sombras blandas para jerarquizar tarjetas en reposo; la única sombra dura es la del preview.",
+      "Don't usar background-clip: text con degradé, bordes-franja laterales (border-left/right > 1px como acento), ni glassmorphism decorativo.",
+      "Don't invertir las voces tipográficas: descripciones en mono o rótulos técnicos en sans rompen la lectura de plano."
+    ]
+  }
+}
